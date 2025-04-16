@@ -11,3 +11,9 @@ if(!require(nichetags)){
 	install_github("woshijiaomu/nichetags")
 }
 ```
+
+after installation，attach the package in R：
+
+```
+library(nichetags)
+```
