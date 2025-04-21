@@ -50,7 +50,7 @@ tag_cci(nnt, file = "cci_qc.pdf")
 
 #draw niche-niche network
 print_nichenet(nnt,file="nichenichenetwork.pdf",vsize = 10)
-#draw clone-clone network without or with niche shadow, save niche-clone pair 
+#draw clone-clone network without or with niche shadow, save niche-clone pairs 
 niche2clone=print_nichenetwork(nnt,file="nichenetwork.pdf",vertex.label.cex=0.1,vsize=3,esize=1)
 print_nichenetwork(nnt,file="nichenetwork-niche.pdf",vertex.label.cex=0.1,vsize=3,esize=1,ecolor=adjustcolor("grey80", alpha.f = 0.5),mark_groups = T)
 write.csv(niche2clone,"niche2clone.csv")
