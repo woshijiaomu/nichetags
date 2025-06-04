@@ -35,9 +35,20 @@ clone2cell.vec=unlist(lapply(names(clone2cell),function(x){
   res=rep(x,nrow(y))
   names(res)=rownames(y)
   res
-  }))
+}))
 clone2cell.df=data.frame(clone_code=clone2cell.vec,cell=names(clone2cell.vec))
+clone2cell.df$clone_ID=nnt$cloneID[clone2cell.df$clone_code]
 write.csv(clone2cell.df,file = "clone2cell.csv")
+
+niche2clone=nnt$niche
+niche2clone.vec=unlist(lapply(names(niche2clone),function(x){
+  res=paste(x,names(niche2clone[[x]]),sep=":")
+  res
+}))
+niche2clone.df=as.data.frame(str_split_fixed(niche2clone.vec,":",n=2))
+colnames(niche2clone.df) = c("niche","clone_code")
+niche2clone.df$clone_ID=nnt$cloneID[niche2clone.df$clone_code]
+write.csv(niche2clone.df,file = "niche2clone.csv")
 
 #nnt=nichenetwork(tag_expression,cell_clusters,share_method="mean")
 #dnnt=Dnichenetwork(tag_expression,cell_clusters,direction = T)
@@ -50,9 +61,5 @@ tag_cci(nnt, file = "cci_qc.pdf")
 
 #draw niche-niche network
 print_nichenet(nnt,file="nichenichenetwork.pdf",vsize = 10)
-#draw clone-clone network without or with niche shadow, save niche-clone pairs 
-niche2clone=print_nichenetwork(nnt,file="nichenetwork.pdf",vertex.label.cex=0.1,vsize=3,esize=1)
-print_nichenetwork(nnt,file="nichenetwork-niche.pdf",vertex.label.cex=0.1,vsize=3,esize=1,ecolor=adjustcolor("grey80", alpha.f = 0.5),mark_groups = T)
-write.csv(niche2clone,"niche2clone.csv")
 
 ```
