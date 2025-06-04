@@ -45,7 +45,7 @@ niche2clone.vec=unlist(lapply(names(niche2clone),function(x){
   res=paste(x,names(niche2clone[[x]]),sep=":")
   res
 }))
-niche2clone.df=as.data.frame(str_split_fixed(niche2clone.vec,":",n=2))
+niche2clone.df=as.data.frame(stringr::str_split_fixed(niche2clone.vec,":",n=2))
 colnames(niche2clone.df) = c("niche","clone_code")
 niche2clone.df$clone_ID=nnt$cloneID[niche2clone.df$clone_code]
 write.csv(niche2clone.df,file = "niche2clone.csv")
