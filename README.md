@@ -23,11 +23,24 @@ Quick Start Guide：
 ```
 #attach R package,load sample data
 library(nichetags)
-data(exam)
+data(example_scObject)
 
 #calculate connectome
-nnt=Dnichenetwork(tag_expression,cell_clusters)
+nnt=Dnichenetwork(scObj,groupby="cell_clusters")
 summary(nnt)
+
+#draw clone-clone network
+print_nichenetwork(nnt,file="nichenetwork.pdf",vertex.label.cex=0.1,vsize=3,esize=1,margin=c(0,0.3,0,0))
+
+#draw quanlity control figures
+print_nichetag(nnt, file = "nichetag_qc1.pdf")
+print_clustertag(nnt, file = "cluster_qc1.pdf")
+tag_cancer_noncancer(nnt, file = "celltype_qc1.pdf")
+tag_cci(nnt, file = "cci_qc1.pdf")
+
+#draw niche-niche network
+print_nichenet(nnt,file="niche2nichenetwork.pdf",vsize = 10)
+
 #clone and the cells it contains
 clone2cell=nnt$clone
 clone2cell.vec=unlist(lapply(names(clone2cell),function(x){
@@ -53,13 +66,8 @@ write.csv(niche2clone.df,file = "niche2clone.csv")
 #nnt=nichenetwork(tag_expression,cell_clusters,share_method="mean")
 #dnnt=Dnichenetwork(tag_expression,cell_clusters,direction = T)
 
-#draw quanlity control figures
-print_nichetag(nnt, file = "nichetag_qc.pdf")
-print_clustertag(nnt, file = "cluster_qc.pdf")
-tag_cancer_noncancer(nnt, file = "celltype_qc.pdf")
-tag_cci(nnt, file = "cci_qc.pdf")
-
-#draw niche-niche network
-print_nichenet(nnt,file="nichenichenetwork.pdf",vsize = 10)
+#draw clone expression matrix
+clonematrix=Clone_expr(scObj,nnt,seurat_layer="counts")
+write.csv(clonematrix,"clone_matrix.csv")
 
 ```
