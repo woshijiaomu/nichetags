@@ -41,7 +41,7 @@ tag_cci(nnt, file = "cci_qc1.pdf")
 #draw niche-niche network
 print_nichenet(nnt,file="niche2nichenetwork.pdf",vsize = 10)
 
-#clone and the cells it contains
+#clones and the cells it contains
 clone2cell=nnt$clone
 clone2cell.vec=unlist(lapply(names(clone2cell),function(x){
   y=clone2cell[[x]]
@@ -53,6 +53,7 @@ clone2cell.df=data.frame(clone_code=clone2cell.vec,cell=names(clone2cell.vec))
 clone2cell.df$clone_ID=nnt$cloneID[clone2cell.df$clone_code]
 write.csv(clone2cell.df,file = "clone2cell.csv")
 
+#niches and the clones it contains
 niche2clone=nnt$niche
 niche2clone.vec=unlist(lapply(names(niche2clone),function(x){
   res=paste(x,names(niche2clone[[x]]),sep=":")
